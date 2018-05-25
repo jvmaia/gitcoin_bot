@@ -75,10 +75,10 @@ def check_issues():
             '%Y-%m-%dT%H:%M:%S'
         )
         diff = now - created_on
-        if issue['is_open'] and diff.total_seconds() < 3000 and issue['status'] == 'open':
+        if issue['is_open'] and diff.total_seconds() < 300 and issue['status'] == 'open':
             send_issue(issue)
 
-    t = Timer(3000, check_issues)  # check new issues every 5 minutes
+    t = Timer(300, check_issues)  # check new issues every 5 minutes
     t.start()
 
 
