@@ -26,9 +26,14 @@ def add_user(user):
     if user in users:
         return
     users.append(user)
-    users_list = list(users)
     with open('users.json', 'w') as f:
-        json.dump(users_list, f)
+        json.dump(users, f)
+
+
+def remove_user(user):
+    users.remove(user)
+    with open('users.json', 'w') as f:
+        json.dump(users, f)
 
 
 @bot.message_handler(commands=['getNewIssues'])
@@ -39,6 +44,17 @@ def addUser(message):  # add user to list fo users waiting a issue
     bot.send_message(
         message.from_user.id,
         text='You are in my list of bounty hunters now'
+    )
+
+
+@bot.message_handler(commands=['cancelSubscription'])
+def removeUser(message):  # add user to list fo users waiting a issue
+    remove_user({
+        'id': message.from_user.id
+    })
+    bot.send_message(
+        message.from_user.id,
+        text="You aren't in my list of bounty hunters now"
     )
 
 
