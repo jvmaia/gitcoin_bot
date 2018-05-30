@@ -60,16 +60,18 @@ def removeUser(message):  # add user to list fo users waiting a issue
 
 def send_issue(issue):
     text = f"""
-*Title*:{issue['title']}
-*Project Length*:{issue['project_length']}
-*Bounty type*:{issue['bounty_type']}
-*Keywords*:{issue['keywords']}
-*Values*: {issue['value_true']} {issue['token_name']} | {issue['value_in_usdt_now']} USD
-*Experience level*: {issue['experience_level']}
-Links:
-    + [Issue in Gitcoin]({issue['url']})
-    + [Issue in Github]({issue['github_url']})
+*Title*: {issue['title']} 
+*Project Length*: {issue['project_length']} 
+*Bounty type*: {issue['bounty_type']} 
+*Keywords*: {issue['keywords']} 
+*Values*: {issue['value_true']} {issue['token_name']} / {issue['value_in_usdt_now']} USD 
+*Experience level*: {issue['experience_level']} 
+Links: 
+    + [Issue in Gitcoin]({issue['url']}) 
+    + [Issue in Github]({issue['github_url']}) 
+
 """
+    text = text.replace('_', '-')
     print(text)
     splitted_text = telebot.util.split_string(text, 3000)
     for user in users:
