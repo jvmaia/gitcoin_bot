@@ -14,11 +14,11 @@ except:
     users = []
 
 
-@bot.message_handler(commands=['start'])
+@bot.message_handler(commands=['start', 'help'])
 def start(message):  # add user to list fo users waiting a issue
     bot.send_message(
         message.from_user.id,
-        text='I will send to you all new issues in gitcoin site, you just need to send me a /getNewIssues'
+        text='I will send to you all new issues in gitcoin site, you just need to send me a /getNewIssues, and you can cancel it anytime sending me a /cancelSubscription'
     )
 
 
@@ -73,10 +73,8 @@ Links:
 """
     text = text.replace('_', '-')
     print(text)
-    splitted_text = telebot.util.split_string(text, 3000)
     for user in users:
-        for t in splitted_text:
-            bot.send_message(user['id'], t, parse_mode='markdown')
+        bot.send_message(user['id'], text, parse_mode='markdown')
 
 
 def check_issues():
@@ -102,4 +100,4 @@ def check_issues():
 
 check_issues()
 print('bot is running')
-bot.polling(none_stop=True, timeout=1500)
+bot.polling(none_stop=True, timeout=150)
