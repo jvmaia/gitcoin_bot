@@ -91,7 +91,7 @@ def check_issues():
             '%Y-%m-%dT%H:%M:%S'
         )
         diff = now - created_on
-        if issue['is_open'] and diff.total_seconds() < 300 and issue['status'] == 'open':
+        if issue['is_open'] and diff.total_seconds() < 300 and issue['status'] == 'open' and issue['network'] != 'rinkeby':
             send_issue(issue)
 
     t = Timer(300, check_issues)  # check new issues every 5 minutes
