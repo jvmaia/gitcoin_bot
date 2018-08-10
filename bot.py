@@ -1,11 +1,13 @@
 from datetime import datetime
 from threading import Timer
 from credentials import TOKEN
+from gitcoin import Gitcoin
 import telebot
 import requests
 import json
 
 bot = telebot.TeleBot(TOKEN)
+api = Gitcoin()
 
 try:
     with open('users.json') as f:
@@ -79,8 +81,7 @@ Links:
 
 def check_issues():
     print('checking issues')
-    r = requests.get('https://gitcoin.co/api/v0.1/bounties')
-    issues = json.loads(r.content)
+    issues = api.bounties.filter(is_open=True).all()
     for issue in issues:
         now = datetime.strptime(
             issue['now'][0:19],
